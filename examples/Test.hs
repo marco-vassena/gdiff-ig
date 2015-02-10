@@ -6,11 +6,10 @@
 module Main where
 
 import Generics.Instant.TH
-import qualified Generics.Instant.Functions.Show as G
 import Generics.Instant.GDiff
 import Test.QuickCheck
 import Test.QuickCheck.Gen
-import System.Random
+import Test.QuickCheck.Random
 import Data.Typeable
 
 -- Testing
@@ -21,7 +20,6 @@ level :: Tree -> Int
 level Leaf = 0
 level (Node _ l r) = 1 + (max (level l) (level r))
 
-instance G.Show   Tree where show'      = G.show
 instance SEq      Tree where shallowEq  = shallowEqDef
 instance Build    Tree where build      = buildDef
 instance Children Tree where children   = childrenDef
@@ -50,7 +48,7 @@ main = quickCheck diffValid
 -- Performance testing
 
 bigTree1, bigTree2 :: Tree
-bigTree1 = unGen arbitrary (mkStdGen 123) 200
-bigTree2 = unGen arbitrary (mkStdGen 124) 200
+bigTree1 = unGen arbitrary (mkQCGen 123) 200
+bigTree2 = unGen arbitrary (mkQCGen 124) 200
 
 testBig = print $ diffLen bigTree1 bigTree2
