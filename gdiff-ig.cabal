@@ -19,7 +19,7 @@ stability:              experimental
 build-type:             Simple
 homepage:               http://www.cs.uu.nl/wiki/GenericProgramming/InstantGenerics
 cabal-version:          >= 1.2.3
-tested-with:            GHC == 7.0.2
+tested-with:            GHC == 7.8.3
 extra-source-files:     examples/Test.hs
 
 library
