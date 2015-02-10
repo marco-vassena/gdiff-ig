@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleContexts     #-}
 {-# LANGUAGE ScopedTypeVariables  #-}
 {-# LANGUAGE MagicHash            #-}
+{-# LANGUAGE FlexibleInstances    #-}
 
 module Generics.Instant.GDiff 
   ( diff, patch, diffLen, GDiff
@@ -18,7 +19,7 @@ import Data.Array
 
 import Data.Typeable
 import GHC.Prim
-
+import GHC.Types (isTrue#)
 
 -- GP lib
 import Generics.Instant
@@ -176,7 +177,7 @@ editScriptLen (ES _ l) = editScriptLen' l where
 
 infixr 4 &
 (&) :: EditScript -> EditScript -> EditScript
-l@(ES m _) & r@(ES n _) = if m <=# n then l else r
+l@(ES m _) & r@(ES n _) = if isTrue# (m <=# n) then l else r
 
 
 -- | Generic patch
